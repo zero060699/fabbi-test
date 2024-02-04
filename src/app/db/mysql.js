@@ -1,12 +1,13 @@
 const mysql = require("mysql2");
 const { Sequelize } = require('sequelize');
+require("dotenv").config();
 
-const sequelize = new Sequelize(config?.mysql.database, config.mysql.user, config.mysql.password, {
-    ...config,
-    host: config?.mysql?.host || '127.0.0.1',
-    port: config?.mysql?.port || 3306,
+const sequelize = new Sequelize(process.env.DATABASEWMYSQL, process.env.USERMYSQL, process.env.PASSWORDMYSQL, {
+    // ...config,
+    host: process.env.HOSTMYSQL || '127.0.0.1',
+    port: process.env.PORTMYSQL || 3306,
     dialect: 'mysql',
-    logging: config?.mysql?.logging || false,
+    logging: process.env.LOGGING || false,
 });
 
 async function connectMysql(){
@@ -24,19 +25,19 @@ async function connectMysql(){
 async function initDatabaseMysql() {
     return new Promise((resolve, reject) => {
         const connection = mysql.createConnection({
-          host: config?.mysql?.host,
-          user: config?.mysql?.user,
-          password: config?.mysql?.password,
+          host: process.env.HOSTMYSQL,
+          user: process.env.USERMYSQL,
+          password: process.env.PASSWORDMYSQL,
         });
         connection.query(
-          `CREATE DATABASE IF NOT EXISTS ${config?.mysql?.database} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci`,
+          `CREATE DATABASE IF NOT EXISTS ${process.env.DATABASEWMYSQL} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci`,
           (error, results) => {
             connection.destroy();
             if (error) {
-              console.log(`Init mysql database ${config?.mysql?.database} failed: ${error?.message || JSON.stringify(error)}`);
+              console.log(`Init mysql database ${process.env.DATABASEWMYSQL} failed: ${error?.message || JSON.stringify(error)}`);
               return reject(error);
             }
-            console.log(`Init mysql database ${config?.mysql?.database} successfully: ${JSON.stringify({results})}`);
+            console.log(`Init mysql database ${process.env.DATABASEWMYSQL} successfully: ${JSON.stringify({results})}`);
             return resolve();
           }
         );
