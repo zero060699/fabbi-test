@@ -44,6 +44,38 @@ class userController {
             responseUtil.error400(res, jsonInstance.jsonNoData(error.message))
         }
     }
+
+    async updatePassword(req, res) {
+        try {
+            const responses = {
+                id:req?.body.id,
+                oldPass:req?.body.oldPass,
+                newPass:req?.body.newPass
+            }
+            const result = await userService.updatePassWord(
+                responses.id,
+                responses.oldPass,
+                responses.newPass
+            )
+            responseUtil.success200(res, jsonInstance.toJsonWithData("Update Password success", result))
+        } catch (error) {
+            responseUtil.error400(res, jsonInstance.jsonNoData(error.message))
+        }
+    }
+
+    async deleteUser(req, res) {
+        try {
+            const responses = {
+                id:req?.params.id
+            }
+            const result = await userService.deleteUser(
+                responses.id
+            )
+            responseUtil.success200(res, jsonInstance.jsondata("delete user success"))
+        } catch (error) {
+            responseUtil.error400(res, jsonInstance.jsondata(error.message))
+        }
+    }
 }
 
 module.exports = new userController();

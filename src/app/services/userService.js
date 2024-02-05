@@ -1,4 +1,5 @@
-const dataUser = require("../models/user")
+const dataUser = require("../models/user");
+const bcrypt = require('bcrypt');
 
 class userService {
     async createUser(login, password, version){
@@ -70,9 +71,23 @@ class userService {
     async updatePassWord(id, oldPass, newPass) {
         return new Promise(async (resolve, reject) => {
             try {
-                
+                const user = await dataUser.findByPk(id);
+                const updateAt = Date.now()
+                if (!user) {
+                    throw new Error('User not found');
+                }
+
+                const isPasswordCorrect = await bcrypt.compare(oldPass, user.password);
+                if (!isPasswordCorrect) {
+                    throw new Error('Incorrect old password')
+                }
+
+                const hashedPassword = await bcrypt.hash(newPass, 10);
+                result = await dataUser.update(
+                    { password: hashedPassword , updatedAt: updateAt}, { where: { id: id } });
+                return resolve(result)
             } catch (error) {
-                
+                return reject(error)
             }
         })
     }
@@ -80,9 +95,17 @@ class userService {
     async deleteUser(id) {
         return new Promise(async (resolve, reject) => {
             try {
-                
+                const result = dataUser.destroy({
+                    where:{
+                        id:id
+                    }
+                })
+                if (!result) {
+                    return reject(new Error("delete user failed"));
+                }
+                return resolve(result);
             } catch (error) {
-                
+                return reject(error);
             }
         })
     }
