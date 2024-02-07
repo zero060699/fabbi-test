@@ -43,7 +43,7 @@ class userService {
                 }
                 return resolve(result);
             } catch (error) {
-                return reject(error);
+                return reject(error.message);
             }
         })
     }
