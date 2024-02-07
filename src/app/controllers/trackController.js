@@ -50,12 +50,14 @@ class trackController {
     async updateTrack(req, res) {
         try {
             const responses = {
+                id:req?.params.name,
                 name: req?.body.name,
                 artistId: req?.body.artistId,
                 albumId:req?.body.albumId,
                 duration: req?.body.duration
             }
             const result = await trackService.updateTrack(
+                responses.id,
                 responses.name,
                 responses.artistId,
                 responses.albumId,

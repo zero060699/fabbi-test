@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize")
 const { sequelize } = require("../db/mysql");
 
 const Album = sequelize.define(
-    "Album",
+    "album",
     {
         id: {
             type: DataTypes.UUID,

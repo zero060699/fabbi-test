@@ -45,7 +45,7 @@ class favoriteController {
     async addAlbum(req, res){
         try {
             const responses = {
-                id: req?.params.id,
+                id: req?.params?.id,
             };
             const result = await favoriteService.addAlbum(
                 responses.id,

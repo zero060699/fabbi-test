@@ -48,7 +48,7 @@ class albumController {
     async updateAlbum(req, res) {
         try {
             const responses = {
-                id:req?.body.id,
+                id:req?.params.id,
                 name:req?.body.name,
                 year:req?.body.year,
                 artistId:req?.body.artistId

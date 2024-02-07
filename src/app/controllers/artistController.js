@@ -46,7 +46,7 @@ class artistController {
     async updateArtist(req, res) {
         try {
             const responses = {
-                id:req?.body.id,
+                id:req?.params.id,
                 name:req?.body.name,
                 grammy:req?.body.grammy
             }

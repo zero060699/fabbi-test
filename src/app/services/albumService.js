@@ -1,4 +1,5 @@
 const dataAlbum = require("../models/album");
+const dataTrack = require("../models/track");
 
 class albumService {
     async getAlbum(){
@@ -46,12 +47,12 @@ class albumService {
 
     async updateAlbum(id, name, year, artistId){
         try {
-            const album = dataAlbum.findByPk(id)
+            const album = await dataAlbum.findByPk(id)
             if (!album) {
                 throw Error("Album is not found")
             }
             const result = await album.update({
-                name:name,
+                name: name,
                 year: year,
                 artistId: artistId
             })
@@ -68,6 +69,7 @@ class albumService {
                 throw Error("Album is not found")
             }
             const result = await album.destroy();
+            await dataTrack.update({ albumId: null }, { where: { albumId: id } });
             return result
         } catch (error) {
             throw Error(error.message)

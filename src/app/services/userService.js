@@ -51,7 +51,7 @@ class userService {
     async getUserById(id){
         return new Promise(async (resolve, reject) => {
             try {
-                const result = await dataUser.find({
+                const result = await dataUser.findOne({
                     where:{
                         id:id
                     },
@@ -83,7 +83,7 @@ class userService {
                 }
 
                 const hashedPassword = await bcrypt.hash(newPass, 10);
-                result = await dataUser.update(
+                const result = await dataUser.update(
                     { password: hashedPassword , updatedAt: updateAt}, { where: { id: id } });
                 return resolve(result)
             } catch (error) {

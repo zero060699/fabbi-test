@@ -6,9 +6,9 @@ class userController {
     async createUser(req, res){
         try {
             const responses = {
-                login: req?.body.login,
-                password: req?.body.password,
-                version: req?.body.version
+                login: req?.body?.login,
+                password: req?.body?.password,
+                version: req?.body?.version
             };
             const result = await userService.createUser(
                 responses.login,
@@ -17,7 +17,7 @@ class userController {
             );
             responseUtil.success200(res, jsonInstance.jsondata("Create user success"))
         } catch (error) {
-            responseUtil.error400(res, jsonInstance.jsondata(error.message))            
+            responseUtil.error400(res, jsonInstance.jsondata("Create user failed"))            
         }
     }
     
@@ -48,7 +48,7 @@ class userController {
     async updatePassword(req, res) {
         try {
             const responses = {
-                id:req?.body.id,
+                id:req?.params.id,
                 oldPass:req?.body.oldPass,
                 newPass:req?.body.newPass
             }
@@ -57,7 +57,7 @@ class userController {
                 responses.oldPass,
                 responses.newPass
             )
-            responseUtil.success200(res, jsonInstance.toJsonWithData("Update Password success", result))
+            responseUtil.success200(res, jsonInstance.jsonNoData("Update Password success"))
         } catch (error) {
             responseUtil.error400(res, jsonInstance.jsonNoData(error.message))
         }
@@ -66,7 +66,7 @@ class userController {
     async deleteUser(req, res) {
         try {
             const responses = {
-                id:req?.params.id
+                id:req?.params?.id
             }
             const result = await userService.deleteUser(
                 responses.id

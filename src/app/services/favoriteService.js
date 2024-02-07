@@ -44,7 +44,7 @@ class favoriteService {
             if(!favorite) {
                 throw Error("album in favorite was not found")
             }
-            favorite.tracks.push(id);
+            favorite.albums.push(id);
             const result = await favorite.save();
             return result;
         } catch (error) {
@@ -55,10 +55,10 @@ class favoriteService {
     async deleteAlbum(id){
         try {
             const favorite = await dataFavorite.findOne();
-            if (!favorite || !favorite.tracks.includes(id)) {
+            if (!favorite || !favorite.albums.includes(id)) {
               throw Error("Album was not found")
             }
-            favorite.tracks = favorite.tracks.filter(id => id !== id);
+            favorite.albums = favorite.albums.filter(id => id !== id);
             const result = await favorite.save();
             return result
           } catch (error) {
@@ -72,7 +72,7 @@ class favoriteService {
             if(!favorite) {
                 throw Error("Artist in favorite was not found")
             }
-            favorite.tracks.push(id);
+            favorite.artists.push(id);
             const result = await favorite.save();
             return result;
         } catch (error) {
@@ -83,10 +83,10 @@ class favoriteService {
     async deleteArtist(id){
         try {
             const favorite = await dataFavorite.findOne();
-            if (!favorite || !favorite.tracks.includes(id)) {
+            if (!favorite || !favorite.artists.includes(id)) {
               throw Error("Artist was not found")
             }
-            favorite.tracks = favorite.tracks.filter(id => id !== id);
+            favorite.artists = favorite.artists.filter(id => id !== id);
             const result = await favorite.save();
             return result
           } catch (error) {

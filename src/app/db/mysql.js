@@ -7,7 +7,7 @@ const sequelize = new Sequelize(process.env.DATABASEWMYSQL, process.env.USERMYSQ
     host: process.env.HOSTMYSQL || '127.0.0.1',
     port: process.env.PORTMYSQL || 3306,
     dialect: 'mysql',
-    logging: process.env.LOGGING || false,
+    logging: false,
 });
 
 async function connectMysql(){

@@ -1,4 +1,6 @@
 const dataArtist = require("../models/artist");
+const dataAlbum = require("../models/album");
+const dataTrack = require("../models/track");
 
 class artistService {
     async getArtist(){
@@ -58,6 +60,7 @@ class artistService {
                 throw Error("Artist not found");
             }
             const result = await artist.destroy();
+
             return result
         } catch (error) {
             throw Error(error.message)

@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize")
 const { sequelize } = require("../db/mysql");
 
 const Favorites = sequelize.define(
-    "Favorites",
+    "favorites",
     {
         artists: {
             type: DataTypes.ARRAY(DataTypes.UUID),

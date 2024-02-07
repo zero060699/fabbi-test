@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize")
 const { sequelize } = require("../db/mysql");
 
 const Track = sequelize.define(
-    "Track", 
+    "track", 
     {
         id: {
             type: DataTypes.UUID,

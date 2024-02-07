@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize")
 const { sequelize } = require("../db/mysql");
 
 const User = sequelize.define(
-    "User",
+    "user",
     {
         id: {
             type: DataTypes.UUID,
@@ -29,6 +29,9 @@ const User = sequelize.define(
             type: DataTypes.DOUBLE,
             allowNull: false,
         },
+    },
+    {
+        freezeTableName: true,
     }
 )
 
