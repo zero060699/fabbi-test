@@ -7,14 +7,17 @@ const Favorites = sequelize.define(
         artists: {
             type: DataTypes.ARRAY(DataTypes.UUID),
             allowNull: false,
+            defaultValue: []
         },
         albums: {
             type: DataTypes.ARRAY(DataTypes.UUID),
             allowNull: false,
+            defaultValue: []
         },
         tracks: {
             type: DataTypes.ARRAY(DataTypes.UUID),
             allowNull: false,
+            defaultValue: []
         },
     }
 )

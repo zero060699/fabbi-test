@@ -1,4 +1,7 @@
 const dataFavorite = require("../models/favorites");
+const dataTrack = require("../models/track");
+const dataArtist = require("../models/artist");
+const dataAlbum = require("../models/album");
 
 class favoriteService {
     async getFavorite(){
@@ -12,11 +15,18 @@ class favoriteService {
 
     async addTrack(id){
         try {
+            const trackId = await dataTrack.findOne({
+                where:{
+                    id:id
+                }
+            })
             const favorite = await dataFavorite.findOne();
             if(!favorite) {
                 throw Error("track in favorite was not found")
             }
-            favorite.tracks.push(id);
+            if(trackId){
+                favorite.tracks.push(id);
+            }
             const result = await favorite.save();
             return result;
         } catch (error) {
@@ -40,11 +50,18 @@ class favoriteService {
 
     async addAlbum(id){
         try {
+            const albumId = await dataTrack.findOne({
+                where:{
+                    id:id
+                }
+            })
             const favorite = await dataFavorite.findOne();
             if(!favorite) {
                 throw Error("album in favorite was not found")
             }
-            favorite.albums.push(id);
+            if(albumId){
+                favorite.albums.push(id);
+            }
             const result = await favorite.save();
             return result;
         } catch (error) {
@@ -68,11 +85,18 @@ class favoriteService {
 
     async addArtist(id){
         try {
+            const artistId = await dataTrack.findOne({
+                where:{
+                    id:id
+                }
+            })
             const favorite = await dataFavorite.findOne();
             if(!favorite) {
                 throw Error("Artist in favorite was not found")
             }
-            favorite.artists.push(id);
+            if(artistId){
+                favorite.artists.push(id);
+            }
             const result = await favorite.save();
             return result;
         } catch (error) {
